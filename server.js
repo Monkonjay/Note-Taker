@@ -13,7 +13,8 @@ app.use(express.json());
 app.use(express.urlencoded({extended : true}));
 
 // assigned port for local host
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
+
 
 // get route returning index.html
 app.get('/', (req,res) => {
