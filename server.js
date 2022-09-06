@@ -1,18 +1,18 @@
+// dependencies
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const app = express();
 let notes = require('./db/db.json');
 
-
 // middleware for public folder
 app.use(express.static('public'));
 
-
+// body parser
 app.use(express.json());
 app.use(express.urlencoded({extended : true}));
 
-
+// assigned port for local host
 const PORT = 3001;
 
 // get route returning index.html
@@ -38,10 +38,8 @@ app.post('/api/notes', (req,res) => {
 req.body.id = Math.floor(Math.random() * 1000000);
 notes.push(req.body);
 fs.writeFileSync('./db/db.json', JSON.stringify(notes));
-res.json(notes);
-  
+res.json(notes); 
 });
-
 
 // Delete route for individual notes
 app.delete('/api/notes/:id' , (req,res) => {
@@ -55,7 +53,6 @@ app.delete('/api/notes/:id' , (req,res) => {
     }
   }  
 });
-
 
 // server listening 
 app.listen(PORT, () => {
