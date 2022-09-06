@@ -1,9 +1,9 @@
 const express = require('express');
-// const { fstat } = require('fs');
+const fs = require('fs');
 const path = require('path');
 const app = express();
 let notes = require('./db/db.json');
-const { fstat } = require('fs');
+
 
 // middleware for public folder
 app.use(express.static('public'));
