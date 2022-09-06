@@ -2,7 +2,7 @@ const express = require('express');
 const { fstat } = require('fs');
 const path = require('path');
 const app = express();
-const notes = require('./db/db.json');
+let notes = require('./db/db.json');
 
 // middleware for public folder
 app.use(express.static('public'));
@@ -53,14 +53,16 @@ app.get('/api/notes/:id' , (req, res) => {
 // Delete note with the given id
 app.delete('/api/notes/:id' , (req,res) => {
 
-  for(i = 0; i < notes.length; i ++) { 
+  for(let i = 0; i < notes.length; i ++) { 
     if(notes[i].id === req.body.id) {
       notes.splice(notes.indexOf(req.body.id,1));
     }
 
-  }
-  
+  }  
 });
+
+
+
 
 // server listening 
 app.listen(PORT, () => {
