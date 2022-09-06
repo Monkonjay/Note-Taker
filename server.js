@@ -3,6 +3,7 @@ const { fstat } = require('fs');
 const path = require('path');
 const app = express();
 let notes = require('./db/db.json');
+const { fstat } = require('fs');
 
 // middleware for public folder
 app.use(express.static('public'));
@@ -10,7 +11,6 @@ app.use(express.static('public'));
 
 app.use(express.json());
 app.use(express.urlencoded({extended : true}));
-
 
 
 const PORT = 3001;
@@ -44,10 +44,18 @@ res.json(notes);
  
 });
 
-// GET Route to retrive note with specific id.
-app.get('/api/notes/:id' , (req, res) => {
 
-});
+
+// // Delete note with the given id
+// app.delete('/api/notes/:id' , (req,res) => {
+
+//   for(let i = 0; i < notes.length; i ++) { 
+//     if(notes[i].id === req.body.id) {
+//       notes.splice(notes.indexOf(req.body.id,1));
+//     }
+
+//   }  
+// });
 
 
 // Delete note with the given id
@@ -55,9 +63,11 @@ app.delete('/api/notes/:id' , (req,res) => {
 
   for(let i = 0; i < notes.length; i ++) { 
     if(notes[i].id === req.body.id) {
-      notes.splice(notes.indexOf(req.body.id,1));
+      notes.splice(notes.indexOf(req.body.id),1);
+      fs.writeFileSync('./db/db.json', JSON.stringify(notes));
+      res.json(notes)
+      break;
     }
-
   }  
 });
 
