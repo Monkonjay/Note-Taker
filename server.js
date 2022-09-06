@@ -33,7 +33,6 @@ res.json(notes);
 });
 
 
-
 // POST route for /api/routes to create a new note.
 app.post('/api/notes', (req,res) => {
 req.body.id = Math.floor(Math.random() * 1000000);
@@ -41,28 +40,14 @@ notes.push(req.body);
 fs.writeFileSync('./db/db.json', JSON.stringify(notes));
 res.json(notes);
   
- 
 });
 
 
-
-// // Delete note with the given id
-// app.delete('/api/notes/:id' , (req,res) => {
-
-//   for(let i = 0; i < notes.length; i ++) { 
-//     if(notes[i].id === req.body.id) {
-//       notes.splice(notes.indexOf(req.body.id,1));
-//     }
-
-//   }  
-// });
-
-
-// Delete note with the given id
+// Delete route for individual notes
 app.delete('/api/notes/:id' , (req,res) => {
 
   for(let i = 0; i < notes.length; i ++) { 
-    if(notes[i].id === req.params.id) {
+    if(notes[i].id == req.params.id) {
       notes.splice(notes.indexOf(req.params.id),1);
       fs.writeFileSync('./db/db.json', JSON.stringify(notes));
       res.json(notes);
@@ -70,8 +55,6 @@ app.delete('/api/notes/:id' , (req,res) => {
     }
   }  
 });
-
-
 
 
 // server listening 
