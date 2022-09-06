@@ -1,5 +1,5 @@
 const express = require('express');
-const { fstat } = require('fs');
+// const { fstat } = require('fs');
 const path = require('path');
 const app = express();
 let notes = require('./db/db.json');
@@ -63,9 +63,9 @@ app.delete('/api/notes/:id' , (req,res) => {
 
   for(let i = 0; i < notes.length; i ++) { 
     if(notes[i].id === req.body.id) {
-      notes.splice(notes.indexOf(req.body.id),1);
+      notes.splice(notes.indexOf(req.params.id),1);
       fs.writeFileSync('./db/db.json', JSON.stringify(notes));
-      res.json(notes)
+      res.json(notes);
       break;
     }
   }  
