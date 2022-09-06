@@ -62,7 +62,7 @@ res.json(notes);
 app.delete('/api/notes/:id' , (req,res) => {
 
   for(let i = 0; i < notes.length; i ++) { 
-    if(notes[i].id === req.body.id) {
+    if(notes[i].id === req.params.id) {
       notes.splice(notes.indexOf(req.params.id),1);
       fs.writeFileSync('./db/db.json', JSON.stringify(notes));
       res.json(notes);
