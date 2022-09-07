@@ -44,10 +44,11 @@ res.json(notes);
 
 // Delete route for individual notes
 app.delete('/api/notes/:id' , (req,res) => {
+  console.log("server noteID",req.params.id);
 
-  for(let i = 0; i < notes.length; i ++) { 
-    if(notes[i].id == req.params.id) {
-      notes.splice(notes.indexOf(req.params.id),1);
+  for(let noteIndex = 0; noteIndex < notes.length; noteIndex ++) { 
+    if(notes[noteIndex].id == req.params.id) {
+      notes.splice(noteIndex,1);
       fs.writeFileSync('./db/db.json', JSON.stringify(notes));
       res.json(notes);
       break;
